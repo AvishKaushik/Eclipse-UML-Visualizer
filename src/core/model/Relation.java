@@ -51,6 +51,7 @@ public class Relation {
     
     @Override
     public String toString() {
+    	// formatting the string!
         return String.format("Relation[%s --%s--> %s%s]", 
             sourceId, type, targetId, targetExternal ? " (external)" : "");
     }
