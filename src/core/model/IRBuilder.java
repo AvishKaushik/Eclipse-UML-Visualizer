@@ -18,9 +18,7 @@ public class IRBuilder {
         this.ir = new IntermediateRepresentation();
     }
     
-    /**
-     * Build IR from a list of parsed classes
-     */
+    /* Build IR from a list of parsed classes */
     public IntermediateRepresentation build(List<ClassInfo> parsedClasses) {
         // Convert parsed classes to IR ClassNodes
         for (ClassInfo classInfo : parsedClasses) {
@@ -30,11 +28,9 @@ public class IRBuilder {
         return ir;
     }
     
-    /**
-     * Convert a parsed ClassInfo to IR ClassNode
-     */
+    /* Convert a parsed ClassInfo to IR ClassNode */
     private ClassNode convertToClassNode(ClassInfo classInfo) {
-        ClassNode classNode = new ClassNode(classInfo.getName(), classInfo.getType(), "");
+        ClassNode classNode = new ClassNode(classInfo.getName(), classInfo.getType(), classInfo.getPackageName());
         
         // Add fields
         for (FieldInfo fieldInfo : classInfo.getFields()) {
@@ -61,9 +57,7 @@ public class IRBuilder {
         return classNode;
     }
     
-    /**
-     * Get the built IR
-     */
+    /* Get the built IR */
     public IntermediateRepresentation getIR() {
         return ir;
     }
