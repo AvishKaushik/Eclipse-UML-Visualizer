@@ -17,13 +17,24 @@ public class JavaClassParser {
      */
     public List<ClassInfo> parse(ICompilationUnit compilationUnit) throws JavaModelException {
         List<ClassInfo> classes = new ArrayList<>();
-        
+
+        // Extract imports from compilation unit
+        org.eclipse.jdt.core.IImportDeclaration[] imports = compilationUnit.getImports();
+        List<String> importList = new ArrayList<>();
+        for (org.eclipse.jdt.core.IImportDeclaration importDecl : imports) {
+            importList.add(importDecl.getElementName());
+        }
+
         IType[] types = compilationUnit.getAllTypes();
         for (IType type : types) {
             ClassInfo classInfo = parseType(type);
+            // Add imports to class
+            for (String importStmt : importList) {
+                classInfo.addImport(importStmt);
+            }
             classes.add(classInfo);
         }
-        
+
         return classes;
     }
     
@@ -33,8 +44,9 @@ public class JavaClassParser {
     private ClassInfo parseType(IType type) throws JavaModelException {
         String typeName = type.getElementName();
         String typeKind = getTypeKind(type);
-        
-        ClassInfo classInfo = new ClassInfo(typeName, typeKind);
+        String packageName = type.getPackageFragment().getElementName();
+
+        ClassInfo classInfo = new ClassInfo(typeName, typeKind, packageName);
         
         // Parse fields
         for (IField field : type.getFields()) {
