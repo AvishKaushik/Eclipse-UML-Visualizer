@@ -1,10 +1,13 @@
 Manifest-Version: 1.0
 Bundle-ManifestVersion: 2
-Bundle-Name: Eclipse_UML_Visualizer
-Bundle-SymbolicName: Eclipse_UML_Visualizer
+Bundle-Name: Eclipse UML Visualizer
+Bundle-SymbolicName: Eclipse_UML_Visualizer;singleton:=true
 Bundle-Version: 1.0.0.qualifier
+Bundle-Vendor: Eclipse UML Visualizer Project
+Bundle-Description: A powerful Eclipse plugin for visualizing UML class diagrams and sequence diagrams from Java source code. Automatically generates interactive diagrams with support for inheritance, associations, aggregation, composition, and method call sequences.
 Bundle-ClassPath: .,
- lib/gson-2.10.1.jar
+ lib/gson-2.10.1.jar,
+ lib/plantuml.jar
 Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.ui,
  org.eclipse.swt,
@@ -15,7 +18,15 @@ Require-Bundle: org.eclipse.core.runtime,
  org.eclipse.jdt.core,
  org.eclipse.core.resources,
  org.eclipse.ui.ide,
+ org.eclipse.draw2d,
+ org.eclipse.ui.workbench,
  org.eclipse.text,
  org.junit;bundle-version="4.13.2"
-Automatic-Module-Name: Eclipse.UML.Visualizer
+Automatic-Module-Name: Eclipse_UML_Visualizer
 Bundle-RequiredExecutionEnvironment: JavaSE-21
+Export-Package: core.model,
+ core.parser,
+ core.persistence,
+ core.visualization,
+ core.export,
+ views
